@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thanh toán</title>
+</head>
+
+<body style="background:#020617;color:white;text-align:center">
+
+<h2>💳 Thanh toán</h2>
+
+<p>STK: 0588807300000</p>
+<p>MB Bank</p>
+<p>Chủ TK: Cao Minh Duy</p>
+
+<button onclick="sendZalo()">Tôi đã thanh toán</button>
+
+<script>
+function sendZalo(){
+let nd="Tôi đã chuyển khoản - kiểm tra giúp!";
+window.location.href="https://zalo.me/0?text="+encodeURIComponent(nd);
+}
+</script>
+
+</body>
+</html>
