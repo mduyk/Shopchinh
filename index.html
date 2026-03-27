@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Shop Proxy mduyk~</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+body{margin:0;font-family:Arial;background:#020617;color:white;}
+.auth{position:fixed;inset:0;display:flex;justify-content:center;align-items:center;background:#0008;}
+.auth-box{background:#1e293b;padding:25px;border-radius:15px;width:320px;text-align:center;}
+input,button{width:100%;padding:10px;margin:6px 0;border:none;border-radius:10px;}
+button{background:#22c55e;color:white;}
+#shop{display:none;}
+.container{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:15px;padding:15px;}
+.box{background:#1e293b;padding:15px;border-radius:15px;text-align:center;}
+.price{color:#22c55e;}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div class="auth" id="auth">
+<div class="auth-box">
+
+<h3>Đăng ký</h3>
+<input id="regUser" placeholder="Tài khoản">
+<input id="regPass" type="password" placeholder="Mật khẩu">
+<button onclick="register()">Đăng ký</button>
+
+<h3>Đăng nhập</h3>
+<input id="logUser" placeholder="Tài khoản">
+<input id="logPass" type="password" placeholder="Mật khẩu">
+<button onclick="login()">Đăng nhập</button>
+
+</div>
+</div>
+
+<!-- SHOP -->
+<div id="shop">
+
+<h2 style="text-align:center">🛒 Shop Proxy mduyk~</h2>
+
+<h3 style="text-align:center">
+💰 Số dư: <span id="money">0</span>đ
+</h3>
+
+<!-- NẠP CODE -->
+<div style="text-align:center;margin:15px">
+<input id="code" placeholder="Nhập mã nạp">
+<button onclick="napCode()">Nạp tiền</button>
+</div>
+
+<div class="container">
+
+<div class="box">
+<h3>Proxy 2 Tuần</h3>
+<p class="price">80.000đ</p>
+<button onclick="buy('Proxy 2 Tuần',80000)">Mua</button>
+</div>
+
+<div class="box">
+<h3>Proxy Tháng</h3>
+<p class="price">150.000đ</p>
+<button onclick="buy('Proxy Tháng',150000)">Mua</button>
+</div>
+
+<div class="box">
+<h3>Proxy 2 Tháng</h3>
+<p class="price">200.000đ</p>
+<button onclick="buy('Proxy 2 Tháng',200000)">Mua</button>
+</div>
+
+<div class="box">
+<h3>Proxy 3 Tháng</h3>
+<p class="price">250.000đ</p>
+<button onclick="buy('Proxy 3 Tháng',250000)">Mua</button>
+</div>
+
+<div class="box">
+<h3>Proxy Vĩnh viễn</h3>
+<p class="price">600.000đ</p>
+<button onclick="buy('Proxy Vĩnh viễn',600000)">Mua</button>
+</div>
+
+<div class="box">
+<h3>💳 Nạp tiền chuyển khoản</h3>
+<button onclick="location.href='pay.html'">Thanh toán</button>
+</div>
+
+</div>
+
+</div>
+
+<script>
+const SECRET="mduyk";
+
+// ===== TIỀN =====
+function setMoney(x){
+let u=localStorage.getItem("user");
+localStorage.setItem("money_"+u,btoa(x+"|"+SECRET));
+}
+function getMoney(){
+let u=localStorage.getItem("user");
+let d=localStorage.getItem("money_"+u);
+if(!d) return 0;
+d=atob(d);
+if(!d.includes(SECRET)) return 0;
+return parseInt(d.split("|")[0]);
+}
+function update(){money.innerText=getMoney();}
+
+// ===== LOGIN =====
+function register(){
+let u=regUser.value;
+let p=regPass.value;
+
+localStorage.setItem("user",u);
+localStorage.setItem("pass",p);
+localStorage.setItem("money_"+u,btoa("0|"+SECRET));
+
+alert("Đăng ký thành công");
+}
+
+function login(){
+if(logUser.value==localStorage.getItem("user") &&
+logPass.value==localStorage.getItem("pass")){
+auth.style.display="none";
+shop.style.display="block";
+update();
+}else alert("Sai tài khoản!");
+}
+
+// ===== CODE CỐ ĐỊNH =====
+let codes={
+"A7K2X9LQ1":50000,"A1M8ZQ2LX":50000,
+"B7K2X9LQ1":100000,"B1M8ZQ2LX":100000,
+"C7K2X9LQ1":200000,"C1M8ZQ2LX":200000,
+"D7K2X9LQ1":500000,"D1M8ZQ2LX":500000,
+  "ZQ9X1M8L2A":500000,"M1L9Z2X8QA":500000,"X2Q8M1Z9LA":500000,"Q9M1X2L8ZA":500000,
+"L8Z2Q1M9XA":500000,"Z1X9L2Q8MA":500000,"M2Q1Z8X9LA":500000,"X9L2M1Q8ZA":500000,
+"Q2Z8X1M9LA":500000,"L1M9Q2Z8XA":500000,"Z8X2Q1M9LA":500000,"M9Q1Z2X8LA":500000,
+"X1L8M2Q9ZA":500000,"Q8M2X1Z9LA":500000,"L2Q9Z1M8XA":500000,"Z1M2L9Q8XA":500000,
+"M2X9Q1Z8LA":500000,"X8Z1M2Q9LA":500000,"Q1L9X2Z8MA":500000,"L9Z2M1X8QA":500000,
+  "Z9Q1X8L2MA":200000,"M2L9X1Q8ZA":200000,"X1Z2Q9L8AM":200000,"Q8L1M2Z9XA":200000,
+"L2X9Z1Q8MA":200000,"Z1M8Q2X9LA":200000,"X9Q2M1Z8LA":200000,"M1Z2L9Q8XA":200000,
+"Q2X1Z8M9LA":200000,"L9M2X1Q8ZA":200000,"Z8Q1L2M9XA":200000,"X2M9Q1Z8LA":200000,
+"M9Z1X2Q8LA":200000,"Q1L8Z2M9XA":200000,"L8Q1X2Z9MA":200000,"Z2X9M1Q8LA":200000,
+"X1Q8L2Z9MA":200000,"M2Z9X1L8QA":200000,"Q9X1M2Z8LA":200000,"L1M8Z2Q9XA":200000,
+  A9X2LQ8Z1M":100000,"Q2M9X1LZ8A":100000,"L1Z8Q2X9MA":100000,"Z2X1Q9L8AM":100000,
+"X9M2Z1Q8LA":100000,"Q1X8Z2L9AM":100000,"M2Q9L1X8ZA":100000,"Z8L1X9Q2MA":100000,
+"Q2X8M1L9ZA":100000,"L9Z1Q2X8AM":100000,"X1M2Q9Z8LA":100000,"M8Z1X2L9QA":100000,
+"Q9X2L1Z8AM":100000,"Z1Q8M2X9LA":100000,"L2M9Q1Z8XA":100000,"X8Q2Z1L9MA":100000,
+"M1X9Q2Z8LA":100000,"Z2L8Q1X9MA":100000,"Q8M1Z2L9XA":100000,"L1X2Q9M8ZA":100000,
+};
+
+let usedCodes=JSON.parse(localStorage.getItem("usedCodes")||"[]");
+
+function napCode(){
+let c=code.value.trim();
+
+if(usedCodes.includes(c)){
+alert("Code đã dùng!");
+return;
+}
+
+if(codes[c]){
+let m=getMoney()+codes[c];
+setMoney(m);
+update();
+
+usedCodes.push(c);
+localStorage.setItem("usedCodes",JSON.stringify(usedCodes));
+
+alert("+"+codes[c]+"đ");
+}else alert("Code sai!");
+}
+
+// ===== MUA =====
+function buy(name,price){
+let m=getMoney();
+if(m<price) return alert("Không đủ tiền");
+
+setMoney(m-price);
+
+let h=JSON.parse(localStorage.getItem("history")||"[]");
+
+h.push({
+name:name,
+price:price,
+time:new Date().toLocaleString()
+});
+
+localStorage.setItem("history",JSON.stringify(h));
+
+window.location.href="history.html";
+}
+</script>
+
+</body>
+</html>
