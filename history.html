@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Lịch sử mua</title>
+
+<style>
+body{background:#020617;color:white;font-family:Arial;text-align:center;}
+.box{background:#1e293b;margin:10px;padding:15px;border-radius:10px;}
+</style>
+</head>
+
+<body>
+
+<h2>📜 Lịch sử mua</h2>
+
+<div id="list"></div>
+
+<h3 style="color:#22c55e">
+👉 Liên hệ admin để nhận key
+</h3>
+
+<script>
+let history=JSON.parse(localStorage.getItem("history")||"[]");
+
+let html="";
+
+history.reverse().forEach(i=>{
+html+=`
+<div class="box">
+<b>${i.name}</b><br>
+💰 ${i.price}đ<br>
+🕒 ${i.time}
+</div>
+`;
+});
+
+list.innerHTML=html;
+</script>
+
+</body>
+</html>
